@@ -26,7 +26,6 @@ import com.mendhak.gpslogger.common.Utilities;
 import com.mendhak.gpslogger.senders.dropbox.DropBoxHelper;
 import com.mendhak.gpslogger.senders.email.AutoEmailHelper;
 import com.mendhak.gpslogger.senders.ftp.FtpHelper;
-import com.mendhak.gpslogger.senders.gdocs.GDocsHelper;
 import com.mendhak.gpslogger.senders.opengts.OpenGTSHelper;
 import com.mendhak.gpslogger.senders.osm.OSMHelper;
 
@@ -49,10 +48,10 @@ public class FileSenderFactory
         return new DropBoxHelper(applicationContext, callback);
     }
 
-    public static IFileSender GetGDocsSender(Context applicationContext, IActionListener callback)
-    {
-        return new GDocsHelper(applicationContext, callback);
-    }
+//    public static IFileSender GetGDocsSender(Context applicationContext, IActionListener callback)
+//    {
+//        return new GDocsHelper(applicationContext, callback);
+//    }
 
     public static IFileSender GetEmailSender(IActionListener callback)
     {
@@ -130,10 +129,10 @@ public class FileSenderFactory
     {
         List<IFileSender> senders = new ArrayList<IFileSender>();
 
-        if (GDocsHelper.IsLinked(applicationContext))
-        {
-            senders.add(new GDocsHelper(applicationContext, callback));
-        }
+//        if (GDocsHelper.IsLinked(applicationContext))
+//        {
+//            senders.add(new GDocsHelper(applicationContext, callback));
+//        }
 
         if (OSMHelper.IsOsmAuthorized(applicationContext))
         {

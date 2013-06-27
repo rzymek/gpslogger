@@ -51,8 +51,6 @@ import com.mendhak.gpslogger.senders.dropbox.DropBoxAuthorizationActivity;
 import com.mendhak.gpslogger.senders.dropbox.DropBoxHelper;
 import com.mendhak.gpslogger.senders.email.AutoEmailActivity;
 import com.mendhak.gpslogger.senders.ftp.AutoFtpActivity;
-import com.mendhak.gpslogger.senders.gdocs.GDocsHelper;
-import com.mendhak.gpslogger.senders.gdocs.GDocsSettingsActivity;
 import com.mendhak.gpslogger.senders.osm.OSMHelper;
 import com.mendhak.gpslogger.senders.opengts.OpenGTSActivity;
 
@@ -675,14 +673,6 @@ public class GpsMainActivity extends SherlockActivity implements OnCheckedChange
     {
         Utilities.LogDebug("GpsMainActivity.UploadToGoogleDocs");
 
-        if (!GDocsHelper.IsLinked(getApplicationContext()))
-        {
-            startActivity(new Intent(GpsMainActivity.this, GDocsSettingsActivity.class));
-            return;
-        }
-
-        Intent settingsIntent = new Intent(GpsMainActivity.this, GDocsSettingsActivity.class);
-        ShowFileListDialog(settingsIntent, FileSenderFactory.GetGDocsSender(getApplicationContext(), this));
     }
 
 
