@@ -3,9 +3,14 @@ package com.mendhak.gpslogger.proximity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
+
+import com.mendhak.gpslogger.GpsMainActivity;
+import com.mendhak.gpslogger.common.Session;
+import com.mendhak.gpslogger.common.Utilities;
 
 public class ReceiveSMS extends BroadcastReceiver {
 
@@ -30,8 +35,22 @@ public class ReceiveSMS extends BroadcastReceiver {
                 }
                 String sender = messages[0].getOriginatingAddress();
                 String message = sb.toString();
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                abortBroadcast();
+                Location curLoc = Session.getCurrentLocationInfo();
+                if(curLoc!=null) {
+                    try {
+                        String[] loc = sb.toString().split(" ");
+                        double lon = Location.convert(loc[0]);
+                        double lat = Location.convert(loc[1]);
+                        Location receivedLoc = new Location("sms");
+                        receivedLoc.setLatitude(lat);
+                        receivedLoc.setLongitude(lon);
+                        float dist = receivedLoc.distanceTo(curLoc);
+                        message+= "\ndistance: "+dist+"m";
+                    }catch (Exception ex){
+                        message+="\nerror: "+ex;
+                    }
+                }
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
             }
         }
     }
