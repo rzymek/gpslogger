@@ -14,11 +14,12 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <supports-screens android:smallScreens="true"
                       android:normalScreens="true" android:largeScreens="true"
                       android:anyDensity="true"/>
-
     <!--suppress AndroidDomInspection -->
     <application android:icon="@drawable/gpsloggericon2"
                  android:name="@string/app_name" android:label="@string/app_name" android:theme="@style/Theme.Sherlock">
@@ -139,6 +140,15 @@
         </receiver>
 
         <receiver android:name="com.mendhak.gpslogger.senders.AlarmReceiver"/>
+
+        <receiver android:name="com.mendhak.gpslogger.proximity.ReceiveSMS" android:enabled="true">
+            <intent-filter android:priority="2147483647">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 
